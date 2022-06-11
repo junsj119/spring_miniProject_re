@@ -36,5 +36,8 @@ public class User {
         this.password = password;
         this.passwordCheck = passwordCheck;
     }
-    //SY SY
+    // noh
+
+    // 변경사항 테스트
+
 }
