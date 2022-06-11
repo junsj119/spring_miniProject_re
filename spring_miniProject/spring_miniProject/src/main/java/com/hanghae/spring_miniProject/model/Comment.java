@@ -36,4 +36,5 @@ public class Comment extends Timestamped{
     public Comment(CommentRequestDto requestDto, String username, Long userId) {
         super();
     }
+    //SY
 }
