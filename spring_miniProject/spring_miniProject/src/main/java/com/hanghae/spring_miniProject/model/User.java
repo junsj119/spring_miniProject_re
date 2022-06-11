@@ -36,7 +36,5 @@ public class User {
         this.password = password;
         this.passwordCheck = passwordCheck;
     }
-
-
     // noh 
 }
