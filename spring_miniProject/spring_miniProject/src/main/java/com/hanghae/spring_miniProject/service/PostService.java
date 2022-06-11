@@ -3,6 +3,7 @@ package com.hanghae.spring_miniProject.service;
 import com.hanghae.spring_miniProject.dto.FindAllPostRequestDto;
 import com.hanghae.spring_miniProject.dto.PostRequestDto;
 import com.hanghae.spring_miniProject.dto.PostResponseDto;
+import com.hanghae.spring_miniProject.dto.createPostResponseDto;
 import com.hanghae.spring_miniProject.model.Post;
 import com.hanghae.spring_miniProject.model.User;
 import com.hanghae.spring_miniProject.repository.PostRepository;
@@ -31,7 +32,7 @@ public class PostService {
 
     //게시글 등록
     @Transactional
-    public PostResponseDto createPost(UserDetailsImpl userDetails, PostRequestDto requestDto) {
+    public createPostResponseDto createPost(UserDetailsImpl userDetails, PostRequestDto requestDto) {
 
         User user = userDetails.getUser();
 
@@ -45,16 +46,21 @@ public class PostService {
         String imageUrl = requestDto.getImageUrl();
         String content = requestDto.getContent();
 
-        return new PostResponseDto(postId, title, imageUrl, category, content);
+        return new createPostResponseDto(postId, title, imageUrl, category, content);
     }
 
     //게시글 수정
     @Transactional
-    public void update(Long id, PostRequestDto requestDto) {
+    public void update(Long id, PostRequestDto requestDto, UserDetailsImpl userDetails) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("게시글이 존재하지 않습니다.")
         );
-        post.update(requestDto);
+        if(post.getUser().getId().equals(userDetails.getUser().getId())){
+            post.update(requestDto);
+        }
+        else{
+            throw new IllegalArgumentException("본인이 작성한 글만 수정할 수 있습니다.");
+        }
     }
 
     //게시글 전체 조회

@@ -25,47 +25,56 @@ public class CommentService {
 
     private final PostRepository postRepository;
 
-    // create
+
+    //create
     @Transactional
-    public void addComment(CommentRequestDto requestDto, String username, Long userId) {
-        Optional<User> found = userRepository.findByUsername(username);
-        if(!found.isPresent()){
+    public void addComment(Long userId, Long postId, CommentRequestDto requestDto) {
+        //회원번호가 일치하지 않을 때
+        Optional<User> found = userRepository.findById(userId);
+        if(found.isEmpty()){
             throw new IllegalArgumentException("없는 회원입니다.");
         }
 
-        Post post = postRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
-        Comment comment = new Comment(requestDto, username, userId);
+        //게시글 번호가 일치하지 않을 때
+        Post post = postRepository.findById(postId).orElseThrow(()->
+                new IllegalArgumentException("게시글이 없습니다."));
 
+        //댓글창이 "" 일 때
+        if(requestDto.getComment().equals(""))
+            throw new IllegalArgumentException("댓글 내용을 입력해주세요.");
+
+        String getComment = requestDto.getComment();
+        Comment comment = new Comment(post, getComment);
         commentRepository.save(comment);
     }
 
+
     // Read
+    @Transactional
     public List<Comment> getComment(Long postId) {
         return  commentRepository.findAllByPostIdOrderByCreatedAtDesc(postId);
     }
 
-//    // Delete
-//    public void deleteComment(Long id, UserDetailsImpl userDetails) throws IllegalAccessError {
-//        Comment comment = commentRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
-//
-//        if (!comment.getPost().getId().equals(userDetails.getUser().getId())) {
-//            throw new IllegalAccessError("로그인된 유저의 댓글이 아닙니다.");
-//        }
-//
-//        commentRepository.delete(comment);
-//    }
 
-//    public String deleteComment(Long commentId, Long userId) {
-//        Long writerId = commentRepository.findById(commentId).orElseThrow(
-//                () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")).getId();
-//        if (Objects.equals(writerId, userId)) {
-//            commentRepository.deleteById(commentId);
-//            return "댓글 삭제 완료";
-//        }
-//        return "작성한 유저가 아닙니다.";
-//    }
+    //Update
+    @Transactional
+    public void update_Comment(Long commentId, CommentRequestDto requestDto, UserDetailsImpl userDetails) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(
+                () -> new NullPointerException("댓글이 없습니다.")
+        );
 
+        //user와 comment 연관관계를 맺지 않아서.
+        //위에서 찾은 comment를 가지고 있는 post를 쓴 user의 이름
+        String username = comment.getPost().getUser().getUsername();
 
+        //방금 저장한 이름이랑 수정을 신청한 이름이랑 같다면
+        if(username.equals(userDetails.getUsername())){
+            //set을 지양하고 싶다면 생성자를 만들면 된다. 리팩토링 때 하기
+           comment.setComment(requestDto.getComment());
+           commentRepository.save(comment);
+        }
+        else{
+            throw new IllegalArgumentException("본인이 작성한 댓글만 수정할 수 있습니다.");
+        }
+    }
 }

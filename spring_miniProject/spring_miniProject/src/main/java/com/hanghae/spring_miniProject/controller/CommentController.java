@@ -24,26 +24,19 @@ public class CommentController {
     // 댓글 작성
     @PostMapping("/api/post/{postId}/comment")
     public String addComment(@PathVariable Long postId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        // 로그인 되어 있는 ID
-        if (userDetails != null) {
-            Long userId = userDetails.getUser().getId();
-            String username = userDetails.getUser().getUsername();
-            commentService.addComment(requestDto, username, userId);        //requestDto -> comment, username  / postId, userId
-            return "댓글 작성 완료";
+        Long userId = userDetails.getUser().getId();
+        //로그인 체킹은 시큐리티에서 해줘서 뺐습니다.
+        try{
+            commentService.addComment(userId, postId, requestDto);        //requestDto -> comment, username  / postId, userId
+            return "댓글 작성 완료하였습니다.";
+        }catch (Exception e){
+            return e.getMessage();
         }
-        return "로그인이 필요합니다.";
     }
 
     // 댓글 삭제
     @DeleteMapping("/api/comment/{postId}/{commentId}")
     public String deleteComment(@PathVariable Long postId, @PathVariable Long commentId) {
-//        // 로그인 되어 있는 ID
-//        if (userDetails != null) {
-//            CommentService.deleteComment(commentId, userDetails);
-//            // return commentService.deleteComment(commentId, userId);
-//
-//        }
-//        return "로그인이 필요합니다.";
 
         Optional<Post> fByPostId = postRepository.findById(postId);
         if (fByPostId.isEmpty()) {
@@ -54,6 +47,21 @@ public class CommentController {
         if (fByCommentId.isEmpty()) {
             throw new IllegalArgumentException("댓글이 존재하지 않습니다.");
         }
+        commentRepository.deleteById(commentId);
         return "Success";
     }
+
+    //댓글 수정
+    //requestDto로 안받고 String comment 로 받아도 된다. username은 userDetails에서 꺼내면 되기 때문이다.
+    @PutMapping("/api/comment/{id}")
+    public String updateComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long commentId = id;
+        try{
+            commentService.update_Comment(commentId, requestDto, userDetails);
+            return "Success";
+        }catch(IllegalArgumentException e){
+            return e.getMessage();
+        }
+    }
+
 }

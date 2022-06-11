@@ -26,17 +26,14 @@ public class Comment extends Timestamped{
     @Column
     private String comment;
 
-
-
     @JsonBackReference // 순환참조 방지
     @ManyToOne
     @JoinColumn(name ="POST_ID")
     private Post post;
 
-    public Comment(CommentRequestDto requestDto, String username, Long userId) {
-        super();
-    }
-    //SY
 
-    //변경경
+    public Comment(Post post, String getComment) {
+        this.post = post;
+        this.comment = getComment;
+    }
 }

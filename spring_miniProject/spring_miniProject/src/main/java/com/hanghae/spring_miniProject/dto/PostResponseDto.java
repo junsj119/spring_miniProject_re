@@ -30,11 +30,5 @@ public class PostResponseDto{
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }
-    public PostResponseDto(Long id, String title, String imageUrl, String category, String content) {
-        this.id = id;
-        this.title = title;
-        this.imageUrl = imageUrl;
-        this.category = category;
-        this.content = content;
-    }
+
 }
