@@ -37,4 +37,6 @@ public class Comment extends Timestamped{
         super();
     }
     //SY
+
+    //변경
 }
