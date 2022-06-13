@@ -24,10 +24,9 @@ public class CommentController {
     // 댓글 작성
     @PostMapping("/api/post/{postId}/comment")
     public String addComment(@PathVariable Long postId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        Long userId = userDetails.getUser().getId();
         //로그인 체킹은 시큐리티에서 해줘서 뺐습니다.
         try{
-            commentService.addComment(userId, postId, requestDto);        //requestDto -> comment, username  / postId, userId
+            commentService.addComment(postId, requestDto, userDetails);        //requestDto -> comment, username  / postId, userId
             return "댓글 작성 완료하였습니다.";
         }catch (Exception e){
             return e.getMessage();

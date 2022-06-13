@@ -1,13 +1,10 @@
 package com.hanghae.spring_miniProject.dto;
 
-import com.hanghae.spring_miniProject.model.Modifiedstamped;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

@@ -1,9 +1,6 @@
 package com.hanghae.spring_miniProject.controller;
 
-import com.hanghae.spring_miniProject.dto.FindAllPostRequestDto;
-import com.hanghae.spring_miniProject.dto.PostRequestDto;
-import com.hanghae.spring_miniProject.dto.PostResponseDto;
-import com.hanghae.spring_miniProject.dto.createPostResponseDto;
+import com.hanghae.spring_miniProject.dto.*;
 import com.hanghae.spring_miniProject.model.Post;
 import com.hanghae.spring_miniProject.repository.PostRepository;
 import com.hanghae.spring_miniProject.security.UserDetailsImpl;
@@ -61,5 +58,11 @@ public class PostController {
     @GetMapping("/api/posts")
     public List<FindAllPostRequestDto> findAllPost(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return postService.findAll(userDetails);
+    }
+
+    //게시글 상세 조회     PostResponseDto + commentRequestDto(list)
+    @GetMapping("/api/post/{postId}")
+    public PostDetailsResponseDto FindPostDetails(@PathVariable Long postId){
+        return postService.FindPostDetails(postId);
     }
 }

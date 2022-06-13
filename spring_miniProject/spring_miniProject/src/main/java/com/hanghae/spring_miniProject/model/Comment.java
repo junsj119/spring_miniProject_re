@@ -31,9 +31,14 @@ public class Comment extends Timestamped{
     @JoinColumn(name ="POST_ID")
     private Post post;
 
+    @ManyToOne
+    @JoinColumn(name ="USER_ID")
+    private User user;
 
-    public Comment(Post post, String getComment) {
+
+    public Comment(Post post, String getComment, User user) {
         this.post = post;
         this.comment = getComment;
+        this.user = user;
     }
 }

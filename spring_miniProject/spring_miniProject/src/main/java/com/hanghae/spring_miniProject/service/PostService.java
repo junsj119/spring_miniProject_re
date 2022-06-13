@@ -1,9 +1,7 @@
 package com.hanghae.spring_miniProject.service;
 
-import com.hanghae.spring_miniProject.dto.FindAllPostRequestDto;
-import com.hanghae.spring_miniProject.dto.PostRequestDto;
-import com.hanghae.spring_miniProject.dto.PostResponseDto;
-import com.hanghae.spring_miniProject.dto.createPostResponseDto;
+import com.hanghae.spring_miniProject.dto.*;
+import com.hanghae.spring_miniProject.model.Comment;
 import com.hanghae.spring_miniProject.model.Post;
 import com.hanghae.spring_miniProject.model.User;
 import com.hanghae.spring_miniProject.repository.PostRepository;
@@ -12,6 +10,7 @@ import com.hanghae.spring_miniProject.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +18,7 @@ import javax.persistence.EntityListeners;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -28,6 +28,7 @@ import static java.util.stream.Collectors.toList;
 public class PostService {
 
     private final PostRepository postRepository;
+
 
 
     //게시글 등록
@@ -77,5 +78,39 @@ public class PostService {
         FindAllPostRequestDto findAllPostRequestDto = new FindAllPostRequestDto(postResponseDtoList, username);
         returnFindPost.add(findAllPostRequestDto);
         return returnFindPost;
+    }
+
+    //게시글 상세 조회     PostResponseDto + commentRequestDto(list)
+    @Transactional
+    public PostDetailsResponseDto FindPostDetails(Long postId) {
+
+        //게시글을 찾는다.
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new NullPointerException("게시글이 존재하지 않습니다.")
+        );
+
+        //리턴 타입에 맞게 데이터를 가져와 생성자에 넣어준다.(post 관련)
+        PostResponseDto postResponseDto = new PostResponseDto(postId, post.getTitle(), post.getImageUrl(), post.getCategory(), post.getContent(),
+                post.getCreatedAt(), post.getModifiedAt());
+
+        //post에서 comment 관련 정보 꺼내기
+        List<CommentRequestDto> commentRequestDtoList = new ArrayList<>();
+
+        List<Comment> comments = post.getComments();
+        //댓글 작성한 애의 닉네임을 어케 가져올까? 댓글 테이블에 nickname을 만들어야하나?
+        //comment랑 User랑 연관관계를 맺어줘야 한다. 다대1로
+        for(Comment comment : comments){
+            Long id = comment.getId();
+            String GetComment = comment.getComment();
+            //comment.getPost().getUser().getUsername();
+            String username = comment.getUser().getUsername();
+            LocalDateTime createdAt = comment.getCreatedAt();
+            LocalDateTime modifiedAt = comment.getModifiedAt();
+
+            CommentRequestDto commentRequestDto = new CommentRequestDto(id, GetComment, username, createdAt, modifiedAt);
+
+            commentRequestDtoList.add(commentRequestDto);
+        }
+        return new PostDetailsResponseDto(postResponseDto, commentRequestDtoList);
     }
 }

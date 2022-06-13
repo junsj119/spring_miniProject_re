@@ -28,23 +28,28 @@ public class CommentService {
 
     //create
     @Transactional
-    public void addComment(Long userId, Long postId, CommentRequestDto requestDto) {
+    public void addComment(Long postId, CommentRequestDto requestDto, UserDetailsImpl userDetails) {
+        User user = userDetails.getUser();
+
         //회원번호가 일치하지 않을 때
-        Optional<User> found = userRepository.findById(userId);
+        Optional<User> found = userRepository.findById(user.getId());
         if(found.isEmpty()){
             throw new IllegalArgumentException("없는 회원입니다.");
         }
 
         //게시글 번호가 일치하지 않을 때
-        Post post = postRepository.findById(postId).orElseThrow(()->
+        Post post = postRepository.findById(postId).orElseThrow(() ->
                 new IllegalArgumentException("게시글이 없습니다."));
+
 
         //댓글창이 "" 일 때
         if(requestDto.getComment().equals(""))
             throw new IllegalArgumentException("댓글 내용을 입력해주세요.");
 
+        //추가
+
         String getComment = requestDto.getComment();
-        Comment comment = new Comment(post, getComment);
+        Comment comment = new Comment(post, getComment, user);
         commentRepository.save(comment);
     }
 
@@ -62,10 +67,13 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(
                 () -> new NullPointerException("댓글이 없습니다.")
         );
-
         //user와 comment 연관관계를 맺지 않아서.
         //위에서 찾은 comment를 가지고 있는 post를 쓴 user의 이름
-        String username = comment.getPost().getUser().getUsername();
+        //String username = comment.getPost().getUser().getUsername();
+
+        //06/13 : 01:47
+        //연관관계      requestDto로 받아도 될듯?
+        String username = comment.getUser().getUsername();
 
         //방금 저장한 이름이랑 수정을 신청한 이름이랑 같다면
         if(username.equals(userDetails.getUsername())){
@@ -77,4 +85,6 @@ public class CommentService {
             throw new IllegalArgumentException("본인이 작성한 댓글만 수정할 수 있습니다.");
         }
     }
+
+
 }
