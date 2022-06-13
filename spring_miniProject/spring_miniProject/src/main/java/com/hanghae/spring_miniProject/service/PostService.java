@@ -5,23 +5,16 @@ import com.hanghae.spring_miniProject.model.Comment;
 import com.hanghae.spring_miniProject.model.Post;
 import com.hanghae.spring_miniProject.model.User;
 import com.hanghae.spring_miniProject.repository.PostRepository;
-import com.hanghae.spring_miniProject.repository.UserRepository;
 import com.hanghae.spring_miniProject.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityListeners;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
+
 
 @RequiredArgsConstructor
 @Service
@@ -46,6 +39,7 @@ public class PostService {
         String category = requestDto.getCategory();
         String imageUrl = requestDto.getImageUrl();
         String content = requestDto.getContent();
+
 
         return new createPostResponseDto(postId, title, imageUrl, category, content);
     }
@@ -72,7 +66,8 @@ public class PostService {
         List<Post> findAllPost = postRepository.findAll();
 
         List<PostResponseDto> postResponseDtoList = findAllPost.stream()
-                .map((o) -> new PostResponseDto(o.getId(), o.getTitle(), o.getImageUrl(), o.getCategory(), o.getContent(), o.getCreatedAt(), o.getModifiedAt()))
+                .map((o) -> new PostResponseDto(o.getId(), o.getTitle(), o.getImageUrl(), o.getCategory(), o.getContent(),
+                        o.getCreatedAt(), o.getModifiedAt(), o.getLikeCnt()))
                 .collect(Collectors.toList());
 
         FindAllPostRequestDto findAllPostRequestDto = new FindAllPostRequestDto(postResponseDtoList, username);

@@ -35,6 +35,9 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private String content;
 
+    @Column
+    private int likeCnt;
+
     @ManyToOne
     @JoinColumn(name="USER_ID")
     private User user;
