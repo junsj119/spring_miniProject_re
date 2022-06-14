@@ -26,11 +26,16 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+//	AWS - S3
+//	implementation 'com.amazonaws:aws-java-sdk-s3'
+	implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.172'
 
 //	//스프링 시큐리티 테스트 모듈
 	testImplementation 'org.springframework.security:spring-security-test'
 //	// 스프링 시큐리티
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 
 
 
