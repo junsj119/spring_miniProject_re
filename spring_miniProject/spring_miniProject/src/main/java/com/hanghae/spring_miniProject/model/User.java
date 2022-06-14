@@ -27,14 +27,11 @@ public class User {
     private String nickname;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
-    private String passwordCheck;
 
-    public User(String username, String nickname, String password, String passwordCheck) {
+    public User(String username, String nickname, String password) {
         this.username = username;
         this.nickname = nickname;
         this.password = password;
-        this.passwordCheck = passwordCheck;
     }
     // noh
 

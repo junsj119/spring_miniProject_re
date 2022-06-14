@@ -24,7 +24,7 @@ public class HeartService {
 
     //좋아요 누르기
     @Transactional
-    public boolean ClickToLike(Long postId, Long userId) {
+    public boolean clickToLike(Long postId, Long userId) {
         Post post = getPost(postId);
         User user = getUser(userId);
 

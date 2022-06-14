@@ -50,12 +50,15 @@ public class PostService {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("게시글이 존재하지 않습니다.")
         );
-        if(post.getUser().getId().equals(userDetails.getUser().getId())){
-            post.update(requestDto);
-        }
-        else{
+
+        User user = post.getUser();
+        Long userId = user.getId();
+
+        if(!(userId.equals(userDetails.getUser().getId()))) {
             throw new IllegalArgumentException("본인이 작성한 글만 수정할 수 있습니다.");
         }
+
+        post.update(requestDto);
     }
 
     //게시글 전체 조회
@@ -66,19 +69,19 @@ public class PostService {
         List<Post> findAllPost = postRepository.findAll();
 
         List<PostResponseDto> postResponseDtoList = findAllPost.stream()
-                .map((o) -> new PostResponseDto(o.getId(), o.getTitle(), o.getImageUrl(), o.getCategory(), o.getContent(),
+                .map((o) -> new PostResponseDto(o.getId(), o.getTitle(), o.getImageUrl(), o.getCategory(), o.getContent(), username,
                         o.getCreatedAt(), o.getModifiedAt(), o.getLikeCnt()))
                 .collect(Collectors.toList());
 
-        FindAllPostRequestDto findAllPostRequestDto = new FindAllPostRequestDto(postResponseDtoList, username);
+        FindAllPostRequestDto findAllPostRequestDto = new FindAllPostRequestDto(postResponseDtoList);
         returnFindPost.add(findAllPostRequestDto);
         return returnFindPost;
     }
 
     //게시글 상세 조회     PostResponseDto + commentRequestDto(list)
     @Transactional
-    public PostDetailsResponseDto FindPostDetails(Long postId) {
-
+    public PostDetailsResponseDto findPostDetails(Long postId, UserDetailsImpl userDetails) {
+        String username = userDetails.getUsername();
         //게시글을 찾는다.
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new NullPointerException("게시글이 존재하지 않습니다.")
@@ -86,9 +89,15 @@ public class PostService {
 
         //리턴 타입에 맞게 데이터를 가져와 생성자에 넣어준다.(post 관련)
         PostResponseDto postResponseDto = new PostResponseDto(postId, post.getTitle(), post.getImageUrl(), post.getCategory(), post.getContent(),
-                post.getCreatedAt(), post.getModifiedAt());
+                username, post.getCreatedAt(), post.getModifiedAt());
 
         //post에서 comment 관련 정보 꺼내기
+        List<CommentRequestDto> commentRequestDtoList = getCommentRequestDtoList(post);
+
+        return new PostDetailsResponseDto(postResponseDto, commentRequestDtoList);
+    }
+
+    private List<CommentRequestDto> getCommentRequestDtoList(Post post) {
         List<CommentRequestDto> commentRequestDtoList = new ArrayList<>();
 
         List<Comment> comments = post.getComments();
@@ -106,6 +115,6 @@ public class PostService {
 
             commentRequestDtoList.add(commentRequestDto);
         }
-        return new PostDetailsResponseDto(postResponseDto, commentRequestDtoList);
+        return commentRequestDtoList;
     }
 }
