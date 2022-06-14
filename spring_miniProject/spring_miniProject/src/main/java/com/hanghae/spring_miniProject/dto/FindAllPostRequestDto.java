@@ -11,10 +11,8 @@ import java.util.List;
 @Setter
 public class FindAllPostRequestDto {
     public List<PostResponseDto> postResponseDto;
-    public String username;
 
-    public FindAllPostRequestDto(List<PostResponseDto> postResponseDto, String username) {
+    public FindAllPostRequestDto(List<PostResponseDto> postResponseDto) {
         this.postResponseDto = postResponseDto;
-        this.username = username;
     }
 }

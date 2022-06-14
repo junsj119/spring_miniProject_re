@@ -10,9 +10,4 @@ import java.util.Optional;
 public interface HeartRepository extends JpaRepository<Heart, Long> {
     Optional<Heart> findByPostAndUser(Post post, User user);
 
-    int countByPost(Post post);
-
-    Long deleteByPost(Post post);
-
-    void deleteAllByPost(Post post);
 }

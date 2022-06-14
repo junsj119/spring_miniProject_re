@@ -42,19 +42,13 @@ public class UserService {
 
         //패스워드
         String password = passwordEncoder.encode(requestDto.getPassword());
-        String password_re = requestDto.getPasswordCheck();
-
-        //- 비밀번호 확인은 비밀번호와 정확하게 일치하기
-        //if(!requestDto.getPassword().equals(password_re))
-        if(!encoder.matches(password_re, password))
-            throw new IllegalArgumentException("비밀번호 확인을 다시 해주세요.");
 
         //- 비밀번호는 `최소 4자 이상이며, 닉네임과 같은 값이 포함된 경우 회원가입에 실패`로 만들기
         if(requestDto.getPassword().length() < 4 || requestDto.getPassword().contains(username))
             throw new IllegalArgumentException("비밀번호 4자리 이상, 혹은 닉네임과 같은 값을 사용할 수 없습니다.");
 
         //데이터 저장
-        User user = new User(username, nickname, password, password_re);
+        User user = new User(username, nickname, password);
         userRepository.save(user);
     }
 }
