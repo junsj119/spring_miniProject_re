@@ -67,9 +67,6 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(
                 () -> new NullPointerException("댓글이 없습니다.")
         );
-        //user와 comment 연관관계를 맺지 않아서.
-        //위에서 찾은 comment를 가지고 있는 post를 쓴 user의 이름
-        //String username = comment.getPost().getUser().getUsername();
 
         //06/13 : 01:47
         //연관관계      requestDto로 받아도 될듯?

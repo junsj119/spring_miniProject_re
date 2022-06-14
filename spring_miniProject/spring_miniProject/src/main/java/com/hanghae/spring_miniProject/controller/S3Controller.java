@@ -17,7 +17,7 @@ public class S3Controller {
 
     // AWS S3에 이미지 업로드
     @PostMapping("/api/post/image")
-    public ResponseEntity<?> uploadImage(@RequestPart(value = "images") List<MultipartFile> multipartFiles) {
+    public ResponseEntity<?> uploadImage(@RequestPart(value = "images") MultipartFile multipartFiles) {
         return new ResponseEntity<>(s3Service.uploadImage(multipartFiles), HttpStatus.OK);
     }
 
