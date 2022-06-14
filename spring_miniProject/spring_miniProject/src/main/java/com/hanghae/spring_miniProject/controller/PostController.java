@@ -24,7 +24,7 @@ public class PostController{
     //게시글 등록
     @PostMapping("/api/post")
     public ResponseEntity<createPostResponseDto> createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return new ResponseEntity<>(postService.createPost(userDetails, requestDto), HttpStatus.OK);
+        return new ResponseEntity<>(postService.createPost(userDetails, requestDto), HttpStatus.CREATED);
     }
 
     //게시글 수정
@@ -32,7 +32,7 @@ public class PostController{
     public ResponseEntity<String> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try{
             postService.update(postId, requestDto, userDetails);
-            return new ResponseEntity<>("수정에 성공하셨습니다.", HttpStatus.OK);
+            return new ResponseEntity<>("수정에 성공하셨습니다.", HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

@@ -29,7 +29,7 @@ public class CommentController {
         //로그인 체킹은 시큐리티에서 해줘서 뺐습니다.
         try{
             commentService.addComment(postId, requestDto, userDetails);        //requestDto -> comment, username  / postId, userId
-            return new ResponseEntity<>("댓글 작성 완료하였습니다.", HttpStatus.OK);
+            return new ResponseEntity<>("댓글 작성 완료하였습니다.", HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -59,7 +59,7 @@ public class CommentController {
         Long commentId = id;
         try{
             commentService.update_Comment(commentId, requestDto, userDetails);
-            return new ResponseEntity<>("댓글 수정에 성공하셨습니다.", HttpStatus.OK);
+            return new ResponseEntity<>("댓글 수정에 성공하셨습니다.", HttpStatus.CREATED);
         }catch(IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
