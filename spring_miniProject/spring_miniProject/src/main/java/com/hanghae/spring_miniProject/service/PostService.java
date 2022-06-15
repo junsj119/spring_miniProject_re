@@ -9,11 +9,11 @@ import com.hanghae.spring_miniProject.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 
 @RequiredArgsConstructor
@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
-
 
 
     //게시글 등록
@@ -54,7 +53,7 @@ public class PostService {
         User user = post.getUser();
         Long userId = user.getId();
 
-        if(!(userId.equals(userDetails.getUser().getId()))) {
+        if (!(userId.equals(userDetails.getUser().getId()))) {
             throw new IllegalArgumentException("본인이 작성한 글만 수정할 수 있습니다.");
         }
 
@@ -62,20 +61,27 @@ public class PostService {
     }
 
     //게시글 전체 조회
-    public List<FindAllPostRequestDto> findAll(UserDetailsImpl userDetails) {
-        List<FindAllPostRequestDto> returnFindPost = new ArrayList<>();
-
+    //게시글 전체 조회
+    public List<PostResponseDto> findAll(UserDetailsImpl userDetails) {
         String username = userDetails.getUsername();
         List<Post> findAllPost = postRepository.findAll();
+        List<PostResponseDto> postResponseDtoList = new ArrayList<>();
 
-        List<PostResponseDto> postResponseDtoList = findAllPost.stream()
-                .map((o) -> new PostResponseDto(o.getId(), o.getTitle(), o.getImageUrl(), o.getCategory(), o.getContent(), username,
-                        o.getCreatedAt(), o.getModifiedAt(), o.getLikeCnt()))
-                .collect(Collectors.toList());
+        for (Post post : findAllPost) {
+            Long id = post.getId();
+            String title = post.getTitle();
+            String imgUrl = post.getImageUrl();
+            String category = post.getCategory();
+            String content = post.getContent();
+            LocalDateTime createdAt = post.getCreatedAt();
+            LocalDateTime modifiedAt = post.getModifiedAt();
+            int likeCnt = post.getLikeCnt();
 
-        FindAllPostRequestDto findAllPostRequestDto = new FindAllPostRequestDto(postResponseDtoList);
-        returnFindPost.add(findAllPostRequestDto);
-        return returnFindPost;
+            PostResponseDto postResponseDto = new PostResponseDto(id, title, imgUrl, category, content, username, createdAt, modifiedAt, likeCnt);
+            postResponseDtoList.add(postResponseDto);
+        }
+
+        return postResponseDtoList;
     }
 
     //게시글 상세 조회     PostResponseDto + commentRequestDto(list)

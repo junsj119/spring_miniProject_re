@@ -8,11 +8,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Arrays;
 
 @Configuration
@@ -68,12 +74,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
                 .and()
+                .cors()
+                // .anyRequest().permitAll()
+                .and()
                 // 로그인 기능 허용
                 .formLogin()
                 //.loginPage("/user/login")   //로그인 할 때 longin.html 페이지로
                 .loginProcessingUrl("/user/login")  //로그인 처리(보안검색대 가고 그런 과정들)
                 .defaultSuccessUrl("/")     //로그인이 성공할 시 해당 url로 이동
-                //.failureUrl("/user/login?error")    //실패했을 때 url
+                .failureUrl("/user/login?error")    //실패했을 때 url
                 .permitAll()
                 .and()
                 .logout()
@@ -81,6 +90,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .exceptionHandling();
+//                .and()
+//                .cors().configurationSource(corsConfigurationSource());
+
         /*
          *         loginPage ()  – 사용자 정의 로그인 페이지
          *         loginProcessingUrl () – 사용자 이름과 암호를 제출할 URL     //원래는 /login인데 재정의 할 수 있다.
