@@ -23,7 +23,7 @@ public class PostController{
 
     //게시글 등록
     @PostMapping("/api/post")
-    public ResponseEntity<createPostResponseDto> createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<createPostResponseDto> createPost(PostRequest2Dto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return new ResponseEntity<>(postService.createPost(userDetails, requestDto), HttpStatus.CREATED);
     }
 

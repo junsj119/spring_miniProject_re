@@ -1,0 +1,223 @@
+[33mcommit 250d80503cf136193095dd159060fd090f56f902[m[33m ([m[1;36mHEAD -> [m[1;32mSY[m[33m)[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Thu Jun 16 03:59:27 2022 +0900
+
+    Revert "hihi commit"
+    
+    This reverts commit 5e6ea68725002365f631b7f0b7eaf0997bbfa840.
+
+[33mcommit 5e6ea68725002365f631b7f0b7eaf0997bbfa840[m[33m ([m[1;31morigin/SY[m[33m)[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Thu Jun 16 03:50:08 2022 +0900
+
+    hihi commit
+
+[33mcommit f1658f719097110687e0b7a4f423bf98e437716f[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Thu Jun 16 01:21:21 2022 +0900
+
+    .....
+
+[33mcommit cd0f1597f918a2d5e8de79aff627b1e16a8268ad[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Thu Jun 16 01:20:12 2022 +0900
+
+    .
+
+[33mcommit 236980c8f41f32e475a3a47bb852dea823730632[m
+Merge: 562c4b6 96e01e9
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Thu Jun 16 01:18:46 2022 +0900
+
+    Merge branch 'main' of https://github.com/junsj119/spring_miniProject_re into SY
+    
+    # Conflicts:
+    #       spring_miniProject/spring_miniProject/src/main/java/com/hanghae/spring_miniProject/config/CorsConfiguration.java
+    #       spring_miniProject/spring_miniProject/src/main/java/com/hanghae/spring_miniProject/security/WebSecurityConfig.java
+    #       spring_miniProject/spring_miniProject/src/main/java/com/hanghae/spring_miniProject/service/PostService.java
+
+[33mcommit 96e01e9a5fa3b7beba59e01ff0f52d3388feb095[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Thu Jun 16 01:15:48 2022 +0900
+
+    CORS fix and Post updated
+
+[33mcommit 562c4b6747c27d137c173349c57da25a6c1a877f[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Thu Jun 16 01:13:50 2022 +0900
+
+    update
+
+[33mcommit 234343fa33f843c9c1e715f98c9f0b703d72950d[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Wed Jun 15 15:03:02 2022 +0900
+
+    CORS_ADD
+
+[33mcommit 0d18511a798527721f87aad547d154a57a26bd15[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Wed Jun 15 14:10:25 2022 +0900
+
+    CORS add
+
+[33mcommit ae47056e74cd4ec39c89a362eb9cc929ab797b28[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Wed Jun 15 10:02:22 2022 +0900
+
+    findByComment
+
+[33mcommit 2513e93b15193d58ec23b3157c9ab2b720b8c47f[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Tue Jun 14 19:16:58 2022 +0900
+
+    s3_update
+
+[33mcommit b7e24a181df3e2fe75b0742309ae5ee21b5af700[m
+Merge: e7ab740 e3c6a95
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Tue Jun 14 17:33:47 2022 +0900
+
+    Merge branch 'main' of https://github.com/junsj119/spring_miniProject_re into SY
+
+[33mcommit e7ab74060a51a7924e946d3b3e981c3864f5e2eb[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Tue Jun 14 17:28:44 2022 +0900
+
+    comment deleted
+
+[33mcommit e3c6a958a174a62882b4977889aac9c8d9a167b6[m
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Tue Jun 14 16:24:05 2022 +0900
+
+    error fixed
+
+[33mcommit c2bca8002d9c2c4132f8ec3933f8d84c024ac822[m
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Tue Jun 14 15:17:51 2022 +0900
+
+    aws fixed
+
+[33mcommit 372974536c1f4ea5f74d729b2ba8141aa77526d7[m
+Merge: fca6677 ab92f02
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Tue Jun 14 15:08:17 2022 +0900
+
+    Merge remote-tracking branch 'origin/main' into noh
+
+[33mcommit fca6677b7ebbccb5343ba82478694481a4d1de0e[m
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Tue Jun 14 15:05:31 2022 +0900
+
+    Revert "AWS S3 updated"
+    
+    This reverts commit d9e40d92ee1700de5f67ac719951f9b4e128f936.
+
+[33mcommit d9e40d92ee1700de5f67ac719951f9b4e128f936[m
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Tue Jun 14 14:49:23 2022 +0900
+
+    AWS S3 updated
+
+[33mcommit ab92f02875eed5723bd289dd5e6f50a349af7622[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Tue Jun 14 14:26:35 2022 +0900
+
+    HttpStatusCode update
+
+[33mcommit 8fe6578090e100f39ad4063ff29e3b7c800da0b1[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Tue Jun 14 11:21:45 2022 +0900
+
+    Httpcode add, findPost username add
+
+[33mcommit 7422f079ee11e122c6b4d7813e1312a9e11f6306[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Mon Jun 13 17:59:47 2022 +0900
+
+    Heart add
+
+[33mcommit 916d94a2f40a52c21bd5f2f1f4241de99cc6d618[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Mon Jun 13 10:58:24 2022 +0900
+
+    post_details, comment_update
+
+[33mcommit 045b5ecad83a6c4c7c396c5a9e561432fffbe971[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Sat Jun 11 18:49:16 2022 +0900
+
+    comment end
+
+[33mcommit ddad53df98edb98b6cd7d7a03bbd92128b147938[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Sat Jun 11 15:49:25 2022 +0900
+
+    ...///
+
+[33mcommit 92dd8acf7240d33dcf005b1c32abbe277d08ea82[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Sat Jun 11 15:48:28 2022 +0900
+
+    vvvv
+
+[33mcommit 0128dd5343a888b9909caed5a85a4fc3018c1651[m
+Merge: 12cb690 f1ea883
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Sat Jun 11 15:45:20 2022 +0900
+
+    Merge branch 'main' of https://github.com/junsj119/spring_miniProject_re into SY
+
+[33mcommit f1ea88355baf6d5ec2108217595fa142fd8dfb5c[m
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Sat Jun 11 15:44:36 2022 +0900
+
+    test3
+
+[33mcommit 29582b649bc226ce0cb49c9571ed1420cabd5556[m
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Sat Jun 11 15:39:16 2022 +0900
+
+    test2
+
+[33mcommit 12cb690cec95e64fdf1628c3ab504f44366030a0[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Sat Jun 11 15:37:21 2022 +0900
+
+    ..
+
+[33mcommit 3d17673efe465359e0f432e7b0711e8234ae8212[m
+Merge: 9d1b0e5 4dd47b2
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Sat Jun 11 15:21:55 2022 +0900
+
+    commit test11
+
+[33mcommit 4dd47b283f78ba598756e996e0e43745d6389aae[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Sat Jun 11 15:02:13 2022 +0900
+
+    branch_push2
+
+[33mcommit 9d1b0e5ceacc89ba77a5fd372dee7b6602a650de[m
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Sat Jun 11 14:59:44 2022 +0900
+
+    branch_commit_noh
+
+[33mcommit 0574187f3febbc1b88acd4098aa7f757aad3b339[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Sat Jun 11 14:56:09 2022 +0900
+
+    branch_commit1
+
+[33mcommit 22618bda55b0875d9b8dfa09dab6f3a856fda9e4[m
+Author: goodtonoh <goodtonoh@gmail.com>
+Date:   Sat Jun 11 14:52:24 2022 +0900
+
+    commit_test1
+
+[33mcommit 85bf6d300fe624c6662bc9f240f395aec83a252a[m
+Author: junsj119 <wjstjddud119@naver.com>
+Date:   Sat Jun 11 14:42:16 2022 +0900
+
+    first_push

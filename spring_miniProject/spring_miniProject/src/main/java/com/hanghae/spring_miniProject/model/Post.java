@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
@@ -53,6 +54,9 @@ public class Post extends Timestamped{
         this.imageUrl = postRequestDto.getImageUrl();
         this.category = postRequestDto.getCategory();
         this.content = postRequestDto.getContent();
+    }
+    public Post(User user){
+        this.user = user;
     }
 
 
