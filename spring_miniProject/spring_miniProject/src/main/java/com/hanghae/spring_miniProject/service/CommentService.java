@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,6 +27,27 @@ public class CommentService {
 
     private final PostRepository postRepository;
 
+    //댓글 조회
+    public List<CommentRequestDto> findComment(Long postId, String username) {
+        Post post = postRepository.findById(postId).orElseThrow(() ->
+                new IllegalArgumentException("게시글이 없습니다."));
+
+        List<CommentRequestDto>commentRequestDtoList = new ArrayList<>();
+
+        List<Comment> comments = post.getComments();
+
+        for(Comment comment : comments){
+            Long id = comment.getId();
+            String GetComment = comment.getComment();
+            LocalDateTime createdAt = comment.getCreatedAt();
+            LocalDateTime modifiedAt = comment.getModifiedAt();
+
+            CommentRequestDto commentRequestDto = new CommentRequestDto(postId, id, GetComment, username, createdAt, modifiedAt);
+
+            commentRequestDtoList.add(commentRequestDto);
+        }
+        return commentRequestDtoList;
+    }
 
     //create
     @Transactional
@@ -82,6 +105,7 @@ public class CommentService {
             throw new IllegalArgumentException("본인이 작성한 댓글만 수정할 수 있습니다.");
         }
     }
+
 
 
 }

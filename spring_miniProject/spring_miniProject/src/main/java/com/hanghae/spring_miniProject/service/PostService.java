@@ -91,30 +91,6 @@ public class PostService {
         PostResponseDto postResponseDto = new PostResponseDto(postId, post.getTitle(), post.getImageUrl(), post.getCategory(), post.getContent(),
                 username, post.getCreatedAt(), post.getModifiedAt());
 
-        //post에서 comment 관련 정보 꺼내기
-        List<CommentRequestDto> commentRequestDtoList = getCommentRequestDtoList(post);
-
-        return new PostDetailsResponseDto(postResponseDto, commentRequestDtoList);
-    }
-
-    private List<CommentRequestDto> getCommentRequestDtoList(Post post) {
-        List<CommentRequestDto> commentRequestDtoList = new ArrayList<>();
-
-        List<Comment> comments = post.getComments();
-        //댓글 작성한 애의 닉네임을 어케 가져올까? 댓글 테이블에 nickname을 만들어야하나?
-        //comment랑 User랑 연관관계를 맺어줘야 한다. 다대1로
-        for(Comment comment : comments){
-            Long id = comment.getId();
-            String GetComment = comment.getComment();
-            //comment.getPost().getUser().getUsername();
-            String username = comment.getUser().getUsername();
-            LocalDateTime createdAt = comment.getCreatedAt();
-            LocalDateTime modifiedAt = comment.getModifiedAt();
-
-            CommentRequestDto commentRequestDto = new CommentRequestDto(id, GetComment, username, createdAt, modifiedAt);
-
-            commentRequestDtoList.add(commentRequestDto);
-        }
-        return commentRequestDtoList;
+        return new PostDetailsResponseDto(postResponseDto);
     }
 }

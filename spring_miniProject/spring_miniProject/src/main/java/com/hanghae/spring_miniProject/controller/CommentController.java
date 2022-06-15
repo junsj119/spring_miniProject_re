@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -22,6 +23,14 @@ public class CommentController {
     private final CommentRepository commentRepository;
     private final CommentService commentService;
     private final PostRepository postRepository;
+
+    //댓글 조회
+    @GetMapping("api/post/{postId}/comment")
+    public ResponseEntity<List<CommentRequestDto>> findComment(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        String username = userDetails.getUsername();
+        return new ResponseEntity<>(commentService.findComment(postId, username), HttpStatus.OK);
+    }
+
 
     // 댓글 작성
     @PostMapping("/api/post/{postId}/comment")

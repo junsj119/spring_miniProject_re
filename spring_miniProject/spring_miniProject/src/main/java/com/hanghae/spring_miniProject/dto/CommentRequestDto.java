@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 public class CommentRequestDto {
+    private Long postId;
     private Long id;
     private String comment;
     private String username;

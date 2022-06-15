@@ -13,10 +13,8 @@ import java.util.List;
 @Setter
 public class PostDetailsResponseDto {
     public PostResponseDto postResponseDto;
-    public List<CommentRequestDto> commentRequestDtoList;
 
-    public PostDetailsResponseDto(PostResponseDto postResponseDto, List<CommentRequestDto> commentRequestDtoList) {
+    public PostDetailsResponseDto(PostResponseDto postResponseDto) {
         this.postResponseDto = postResponseDto;
-        this.commentRequestDtoList = commentRequestDtoList;
     }
 }
