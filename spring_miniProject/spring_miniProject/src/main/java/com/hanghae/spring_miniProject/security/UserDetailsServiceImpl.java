@@ -1,6 +1,5 @@
 package com.hanghae.spring_miniProject.security;
 
-
 import com.hanghae.spring_miniProject.model.User;
 import com.hanghae.spring_miniProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +26,3 @@ public class UserDetailsServiceImpl implements UserDetailsService {     //Spring
         return new UserDetailsImpl(user);
     }
 }
-
-
-
-
-
-

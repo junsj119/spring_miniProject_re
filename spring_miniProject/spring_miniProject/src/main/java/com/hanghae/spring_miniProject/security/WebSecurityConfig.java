@@ -40,8 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return source;
 //    }
 
-
-
     @Bean
     public BCryptPasswordEncoder encodePassword() {
         return new BCryptPasswordEncoder();
@@ -68,13 +66,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
                 .and()
+                .cors()
+                .and()
                 // 로그인 기능 허용
                 .formLogin()
                 //.loginPage("/user/login")   //로그인 할 때 longin.html 페이지로
                 .loginProcessingUrl("/user/login")  //로그인 처리(보안검색대 가고 그런 과정들)
-                .defaultSuccessUrl("/")     //로그인이 성공할 시 해당 url로 이동
-                //.failureUrl("/user/login?error")    //실패했을 때 url
+                .failureUrl("/user/login?error")    //실패했을 때 url
                 .permitAll()
+                .defaultSuccessUrl("/")     //로그인이 성공할 시 해당 url로 이동
                 .and()
                 .logout()
                 .logoutUrl("/user/logout")

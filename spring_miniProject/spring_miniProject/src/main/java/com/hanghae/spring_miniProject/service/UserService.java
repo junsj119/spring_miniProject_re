@@ -38,7 +38,7 @@ public class UserService {
         //- 닉네임은 `최소 3자 이상, 알파벳 대소문자(a~z, A~Z), 숫자(0~9)`로 구성하기
         String pattern = "^[a-zA-Z0-9]*$";
         if(requestDto.getUsername().length() < 3 && Pattern.matches(pattern, requestDto.getUsername()))
-            throw new IllegalArgumentException("닉네임은 3자리 이상 입력해주세요.");
+            throw new IllegalArgumentException("영문/숫자 포함 닉네임은 3자리 이상 입력해주세요.");
 
         //패스워드
         String password = passwordEncoder.encode(requestDto.getPassword());

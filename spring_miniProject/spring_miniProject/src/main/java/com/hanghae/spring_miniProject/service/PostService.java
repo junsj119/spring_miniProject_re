@@ -62,20 +62,26 @@ public class PostService {
     }
 
     //게시글 전체 조회
-    public List<FindAllPostRequestDto> findAll(UserDetailsImpl userDetails) {
-        List<FindAllPostRequestDto> returnFindPost = new ArrayList<>();
-
+    public List<PostResponseDto> findAll(UserDetailsImpl userDetails) {
         String username = userDetails.getUsername();
         List<Post> findAllPost = postRepository.findAll();
+        List<PostResponseDto> postResponseDtoList = new ArrayList<>();
 
-        List<PostResponseDto> postResponseDtoList = findAllPost.stream()
-                .map((o) -> new PostResponseDto(o.getId(), o.getTitle(), o.getImageUrl(), o.getCategory(), o.getContent(), username,
-                        o.getCreatedAt(), o.getModifiedAt(), o.getLikeCnt()))
-                .collect(Collectors.toList());
+        for(Post post : findAllPost){
+            Long id = post.getId();
+            String title = post.getTitle();
+            String imgUrl = post.getImageUrl();
+            String category = post.getCategory();
+            String content = post.getContent();
+            LocalDateTime createdAt = post.getCreatedAt();
+            LocalDateTime modifiedAt = post.getModifiedAt();
+            int likeCnt = post.getLikeCnt();
 
-        FindAllPostRequestDto findAllPostRequestDto = new FindAllPostRequestDto(postResponseDtoList);
-        returnFindPost.add(findAllPostRequestDto);
-        return returnFindPost;
+            PostResponseDto postResponseDto = new PostResponseDto(id, title, imgUrl, category, content, username, createdAt, modifiedAt, likeCnt);
+            postResponseDtoList.add(postResponseDto);
+        }
+
+        return postResponseDtoList;
     }
 
     //게시글 상세 조회     PostResponseDto + commentRequestDto(list)

@@ -57,7 +57,7 @@ public class PostController{
 
     //게시글 전체 조회
     @GetMapping("/api/posts")
-    public ResponseEntity<List<FindAllPostRequestDto>> findAllPost(@AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<List<PostResponseDto>> findAllPost(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return new ResponseEntity<>(postService.findAll(userDetails), HttpStatus.OK);
     }
 
