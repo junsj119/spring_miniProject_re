@@ -9,11 +9,11 @@ import com.hanghae.spring_miniProject.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 
 @RequiredArgsConstructor
@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
-
 
 
     //게시글 등록
@@ -54,7 +53,7 @@ public class PostService {
         User user = post.getUser();
         Long userId = user.getId();
 
-        if(!(userId.equals(userDetails.getUser().getId()))) {
+        if (!(userId.equals(userDetails.getUser().getId()))) {
             throw new IllegalArgumentException("본인이 작성한 글만 수정할 수 있습니다.");
         }
 
@@ -67,7 +66,9 @@ public class PostService {
         List<Post> findAllPost = postRepository.findAll();
         List<PostResponseDto> postResponseDtoList = new ArrayList<>();
 
+
         for(Post post : findAllPost){
+
             Long id = post.getId();
             String title = post.getTitle();
             String imgUrl = post.getImageUrl();
