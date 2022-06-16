@@ -21,7 +21,7 @@ public class PostResponseDto{
     //어노테이션을 붙여야 하나??? service단에서 바꿔줘야한다.
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    
+
     private int likeCnt;
 
     //게시글 상세조회
@@ -36,7 +36,7 @@ public class PostResponseDto{
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }
-    
+
     //게시글 조회 ( @AllArgs 어노테이션으로 생략 가능)
     public PostResponseDto(Long id, String title, String imageUrl, String category, String content, String username,
                            LocalDateTime createdAt, LocalDateTime modifiedAt, int likeCnt) {

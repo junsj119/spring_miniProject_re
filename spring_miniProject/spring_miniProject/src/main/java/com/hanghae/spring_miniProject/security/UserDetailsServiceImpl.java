@@ -9,8 +9,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {     //Spring Security에서 유저의 정보를 가져오는 인터페이스이다.
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -19,11 +20,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {     //Spring
         this.userRepository = userRepository;
     }
 
-    //loadUserByUsername 는 UserDetailsService가 가지고 있는 함수
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can't find " + username));
-        //조회가 되면 UserDetail로 반환?
+
         return new UserDetailsImpl(user);
     }
 }

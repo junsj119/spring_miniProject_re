@@ -22,10 +22,15 @@ public class PostController{
     private final PostService postService;
 
     //게시글 등록
+    //게시글 등록
     @PostMapping("/api/post")
-    public ResponseEntity<createPostResponseDto> createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<createPostResponseDto> createPost(PostRequest2Dto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return new ResponseEntity<>(postService.createPost(userDetails, requestDto), HttpStatus.CREATED);
     }
+//    @PostMapping("/api/post")
+//    public ResponseEntity<createPostResponseDto> createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+//        return new ResponseEntity<>(postService.createPost(userDetails, requestDto), HttpStatus.CREATED);
+//    }
 
     //게시글 수정
     @PutMapping("/api/post/{postId}")

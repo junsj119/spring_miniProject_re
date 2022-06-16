@@ -5,12 +5,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
-public class UserDetailsImpl implements UserDetails {   //Spring Security에서 사용자의 정보를 담는 인터페이스이다.?
 
+
+public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
-    public UserDetailsImpl(User user) {    //userDatialsService에서 조회가 된 회원 정보의 객체
+    public UserDetailsImpl(User user) {
         this.user = user;
     }
 
@@ -48,17 +49,8 @@ public class UserDetailsImpl implements UserDetails {   //Spring Security에서 
         return true;
     }
 
-    @Override                                                           //getAuthorities 안에?? getAuthorities  가 있다.
-    public Collection<? extends GrantedAuthority>getAuthorities(){      //GrantedAuthority 얘 인터페이스로 만들어진 애들만 인정 ex) SimpleGrantedAuthority
-//        UserRoleEnum role = user.getRole();     //ADMIN, USER ??
-//        String authority = role.getAuthority(); //"ROLE_ADMIN", "ROLE_ADMIN"
-//
-//        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
-//        Collection<GrantedAuthority> authorities = new ArrayList<>();
-//        authorities.add(simpleGrantedAuthority);
-//
-//        return authorities;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
-
 }
