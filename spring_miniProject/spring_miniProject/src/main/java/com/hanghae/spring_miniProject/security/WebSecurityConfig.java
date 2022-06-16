@@ -32,73 +32,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/h2-console/**");
     }
 
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//
-//        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT"));
-//        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-//        configuration.setAllowCredentials(true);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-
     @Bean
     public BCryptPasswordEncoder encodePassword() {
         return new BCryptPasswordEncoder();
     }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        // 회원 관리 처리 API (POST /user/**) 에 대해 CSRF 무시
-        //http.csrf().ignoringAntMatchers("/user/**");
-
-        //POST 요청들이 문제없이 처리된다. csef 무시
         http.csrf().disable();
+        http.headers().frameOptions().disable();
+        //로그인
+        http.formLogin()
+                .loginProcessingUrl("/user/login")
+                .defaultSuccessUrl("http://localhost:3000/")
+                .failureUrl("http://localhost:3000/login/");
 
+        //로그아웃
+        http.logout()
+                .logoutUrl("http://localhost:3000/login/");
+
+        //권한 열림
         http.authorizeRequests()
-                //회원 관리 처리 API 전부를 login 없이 허용
-                .antMatchers("/user/**").permitAll()
-                // image 폴더를 login 없이 허용
-                .antMatchers("/images/**").permitAll()
-                // css 폴더를 login 없이 허용
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/images/**", "/css/**", "/user/**", "/h2-console/**",  "/api/**").permitAll();
 
-                // 어떤 요청이든 '인증'
+        //권한 필요
+        http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .cors()
+                .cors();
 
-                .and()
-                // 로그인 기능 허용
-                .formLogin()
-                //.loginPage("/user/login")   //로그인 할 때 longin.html 페이지로
-                .loginProcessingUrl("/user/login")  //로그인 처리(보안검색대 가고 그런 과정들)
-                .failureUrl("/user/login?error")    //실패했을 때 url
-                .permitAll()
-                .defaultSuccessUrl("/")     //로그인이 성공할 시 해당 url로 이동
-                .and()
-                .logout()
-                .logoutUrl("/user/logout")
-                .permitAll()
-                .and()
-                .exceptionHandling();
-//                .and()
-//                .cors().configurationSource(corsConfigurationSource());
-
-        /*
-         *         loginPage ()  – 사용자 정의 로그인 페이지
-         *         loginProcessingUrl () – 사용자 이름과 암호를 제출할 URL     //원래는 /login인데 재정의 할 수 있다.
-         *         defaultSuccessUrl () – 성공적인 로그인 후 랜딩 페이지
-         *         failureUrl () – 로그인 실패 후 방문 페이지
-         *         logoutUrl () – 사용자 정의 로그 아웃
-         *         logoutSuccessUrl () – 로그아웃 성공 시 페이지 이동
-         **/
-
+        //권한 없음
+        http.exceptionHandling()
+                .accessDeniedPage("/user/forbidden");
     }
+
 }
