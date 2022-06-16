@@ -7,35 +7,15 @@
 ## 2. 프로젝트 개요
 애완동물은 사랑하는 사람들의 커뮤니티 입니다.
 
-## 3. 
-# 로그인 요청
+## 3. API 설계
+![image](https://user-images.githubusercontent.com/75522862/174070901-788dcb17-f130-4d4a-89b5-8e137293ef12.png)
 
-[회원가입](https://www.notion.so/1c48685cf5bf4f83ad25d92df297eedd)
+![image](https://user-images.githubusercontent.com/75522862/174070993-1467b5b7-29b9-4715-aced-dbf8f1020ed6.png)
 
-[아이디 중복 검사](https://www.notion.so/85416bdec5944980b9ddc9843b3bc2e8)
+![image](https://user-images.githubusercontent.com/75522862/174071075-c4093792-eec8-43c9-bc4d-4b700fad82e2.png)
 
-[로그아웃](https://www.notion.so/fa87bebc6afb47c490164a11d943e94e)
+![image](https://user-images.githubusercontent.com/75522862/174071124-dae0061a-080f-4bc2-99cd-21a3f7dfe188.png)
 
-[사진 업로드](https://www.notion.so/18111df1b83b4b52ad04129842108e79)
 
-[게시글 등록](https://www.notion.so/7c229b425e30465893c48fc55a4e0012)
-
-[게시글 수정](https://www.notion.so/c5a168d1efcb4fbeac20619a49818a71)
-
-[게시글 삭제](https://www.notion.so/4cbcce00a82e44b292b57021f3679da8)
-
-[게시글 전체
-조회](https://www.notion.so/7b97167352f942b983bc801ae4dc2aa1)
-
-[댓글 조회](https://www.notion.so/62861db718e845fa8936243e75efb46f)
-
-[게시글 상세
-조회](https://www.notion.so/0fc50ef1c7194b5db9416241d12c3dfa)
-
-[댓글 작성](https://www.notion.so/f29889c3673b4c1aba73ed7b78217e1f)
-
-[댓글 삭제](https://www.notion.so/5bbdf760e3cb457884db996d257b10e2)
-
-[댓글 수정](https://www.notion.so/3d01e539a80048a8ac35f11cce940bc9)
-
-[좋아요 ](https://www.notion.so/6e0421c06f334a64b639132c4a2dfb39)
+## 4. ERD
+![image](https://user-images.githubusercontent.com/75522862/174071163-66372de7-79de-4c7a-8fa8-3562f5995699.png)
