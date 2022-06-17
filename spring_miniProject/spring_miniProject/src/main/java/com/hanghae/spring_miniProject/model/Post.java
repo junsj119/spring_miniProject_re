@@ -47,6 +47,7 @@ public class Post extends Timestamped{
     @OneToMany(mappedBy = "post", orphanRemoval = true) // orpahRemanal = true 부모 삭제시 자식도 삭제
     private List<Comment> comments;
 
+
     public Post(User user, PostRequestDto postRequestDto){
         this.user = user;
         this.title = postRequestDto.getTitle();

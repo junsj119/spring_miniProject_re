@@ -64,15 +64,16 @@ public class PostService {
         } catch(IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드에 실패했습니다.");
         }
-
         imgUrl = amazonS3.getUrl(bucket, fileName).toString();
 
         PostRequestDto postRequestDto = new PostRequestDto(title, imgUrl, category, content);
+
 
         Post post = new Post(user, postRequestDto);
 
         postRepository.save(post);
         Long postId = post.getId();
+
 
     return new createPostResponseDto(postId, title, imgUrl, category, content);
 }
